@@ -12,7 +12,9 @@ export const getTasks = async (req, res)=>{
 export const getTaskById = async(req, res)=>{
     const id = req.params.id
     const {rows} = await pool.query(
-        `SELECT * FROM ${tableName} WHERE id=${id}`)
+        `SELECT * FROM ${tableName} WHERE id=${id}
+        ORDER BY id ASC`
+    )
     if (rows.length==0){
         return res.status(404).json('User not found')
     }
