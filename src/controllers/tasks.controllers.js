@@ -51,8 +51,7 @@ export const updateTask = async (req, res)=>{
         RETURNING *`,
         Object.values(data)
     )
-    //res.json(rows[0])
-    res.send("recibido")
+    res.json(rows[0])
 }
 
 //DELETE
