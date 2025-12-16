@@ -1,3 +1,4 @@
+import { Query } from 'pg'
 import { pool } from '../db.js'
 let tableName = 'tasks'
 
@@ -34,6 +35,15 @@ export const createTask = async (req, res)=>{
 export const updateTask = async (req, res)=>{
     const data = req.body
     const {id} = req.params
+
+    console.log(`data es ${data} y el id es ${id}`)
+
+    console.log(`UPDATE ${tableName} 
+        SET name = $1, completed = $2
+        WHERE id=${id}
+        RETURNING *`,
+        Object.values(data))
+
     const {rows} = await pool.query (
         `UPDATE ${tableName} 
         SET name = $1, completed = $2
@@ -41,7 +51,8 @@ export const updateTask = async (req, res)=>{
         RETURNING *`,
         Object.values(data)
     )
-    res.json(rows[0])
+    //res.json(rows[0])
+    res.send("recibido")
 }
 
 //DELETE

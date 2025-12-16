@@ -14,12 +14,12 @@ router.get('/tasks',getTasks)
 router.get('/tasks/:id',getTaskById)
 
 //POST
-router.post('/products',createTask)
+router.post('/tasks',createTask)
 
 //PUT
-router.put('/products/:id',updateTask)
+router.put('/tasks/:id',updateTask)
 
 //DELETE
-router.delete('/products/:id',deleteTask)
+router.delete('/tasks/:id',deleteTask)
 
 export default router
