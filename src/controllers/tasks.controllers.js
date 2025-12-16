@@ -36,14 +36,6 @@ export const updateTask = async (req, res)=>{
     const data = req.body
     const {id} = req.params
 
-    console.log(`data es ${data} y el id es ${id}`)
-
-    console.log(`UPDATE ${tableName} 
-        SET name = $1, completed = $2
-        WHERE id=${id}
-        RETURNING *`,
-        Object.values(data))
-
     const {rows} = await pool.query (
         `UPDATE ${tableName} 
         SET name = $1, completed = $2
