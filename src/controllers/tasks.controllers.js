@@ -1,14 +1,14 @@
 import { pool } from '../db.js'
-let tableName = 'products_test'
+let tableName = 'tasks'
 
 
 //GET
-export const getProducts = async (req, res)=>{
+export const getTasks = async (req, res)=>{
     const {rows} = await pool.query(`SELECT * FROM ${tableName}`)
     res.json(rows)
 }
 
-export const getProductById = async(req, res)=>{
+export const getTaskById = async(req, res)=>{
     const id = req.params.id
     const {rows} = await pool.query(
         `SELECT * FROM ${tableName} WHERE id=${id}`)
@@ -19,24 +19,24 @@ export const getProductById = async(req, res)=>{
 }
 
 //POST
-export const createProduct = async (req, res)=>{
+export const createTask = async (req, res)=>{
     const data = req.body
     const {rows} = await pool.query (
         `INSERT INTO ${tableName} 
-        (name, unit, price) 
-        VALUES ($1, $2, $3) RETURNING *`,
+        (name, completed) 
+        VALUES ($1, $2) RETURNING *`,
         Object.values(data)
     )
     res.json(rows)
 }
 
 //PUT
-export const updateProduct = async (req, res)=>{
+export const updateTask = async (req, res)=>{
     const data = req.body
     const {id} = req.params
     const {rows} = await pool.query (
         `UPDATE ${tableName} 
-        SET name = $1, unit = $2, price = $3
+        SET name = $1, completed = $2
         WHERE id=${id}
         RETURNING *`,
         Object.values(data)
@@ -46,7 +46,7 @@ export const updateProduct = async (req, res)=>{
 
 //DELETE
 
-export const deleteProduct = async (req, res)=>{
+export const deleteTask = async (req, res)=>{
     const {id} = req.params
     const {rows} = await pool.query(
         `DELETE FROM ${tableName} 

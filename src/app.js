@@ -1,7 +1,7 @@
 import express from 'express'
 import {PORT} from "./config.js"
-import usersRoutes from "./routes/users.routes.js"
-import productsRoutes from "./routes/products.routes.js"
+
+import tasksRoutes from "./routes/tasks.routes.js"
 import mainRoute from './routes/main.routes.js'
 import cors from 'cors';
 
@@ -16,8 +16,7 @@ app.use(cors({
 
 
 app.use(express.json())
-app.use(usersRoutes)
-app.use(productsRoutes)
+app.use(tasksRoutes)
 app.use(mainRoute)
 
 app.listen(PORT,()=>{
