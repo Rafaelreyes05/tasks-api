@@ -5,15 +5,17 @@ let tableName = 'tasks'
 
 //GET
 export const getTasks = async (req, res)=>{
-    const {rows} = await pool.query(`SELECT * FROM ${tableName}`)
+    const {rows} = await pool.query(`
+        SELECT * FROM ${tableName}
+        ORDER BY id ASC`
+    )
     res.json(rows)
 }
 
 export const getTaskById = async(req, res)=>{
     const id = req.params.id
     const {rows} = await pool.query(
-        `SELECT * FROM ${tableName} WHERE id=${id}
-        ORDER BY id ASC`
+        `SELECT * FROM ${tableName} WHERE id=${id}`
     )
     if (rows.length==0){
         return res.status(404).json('User not found')
